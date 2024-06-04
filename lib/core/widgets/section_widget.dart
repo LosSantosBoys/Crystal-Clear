@@ -16,19 +16,23 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              headerTitle,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                headerTitle,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
-            ),
-            if (headerTrailing != null) headerTrailing!,
-          ],
+              if (headerTrailing != null) headerTrailing!,
+            ],
+          ),
         ),
+        const SizedBox(height: 10),
         child
       ],
     );
