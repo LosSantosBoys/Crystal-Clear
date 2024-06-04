@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/core/services/auth_service.dart';
-import 'package:project/screens/sign_up_screen.dart';
-import '../core/widgets/custom_button.dart';
+import 'package:project/core/widgets/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -94,10 +93,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SignUpScreen()),
-                  );
+                  Navigator.pushNamed(context, "/signup");
                 },
                 child: const Text(
                   'Não tem conta? Crie uma.',

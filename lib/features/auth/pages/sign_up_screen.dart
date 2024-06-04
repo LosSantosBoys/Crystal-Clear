@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../core/services/db_service.dart';
-import '../core/widgets/custom_button.dart';
+import 'package:project/core/services/db_service.dart';
+import 'package:project/core/widgets/custom_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
