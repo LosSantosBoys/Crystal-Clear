@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
             Section(
               headerTitle: "Placar de Líderes",
               headerTrailing: TextButton(
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, '/leaderboard'),
                 child: const Text("ver mais"),
               ),
               child: SizedBox(
