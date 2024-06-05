@@ -31,11 +31,12 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
           contentTextStyle: TextStyle(color: Colors.black),
         ),
+        scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => LoginScreen(),
+        '/login': (context) => LoginScreen(),
         '/signup': (context) => const SignUpScreen(),
         '/home': (context) => const HomePage(),
         '/collections': (context) => const CollectionsPage(),
