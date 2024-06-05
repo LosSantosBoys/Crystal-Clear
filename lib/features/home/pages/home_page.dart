@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/core/widgets/bottom_bar.dart';
+import 'package:project/core/widgets/more_drawer.dart';
 import 'package:project/features/home/widgets/collection_grid.dart';
 import 'package:project/core/widgets/section_widget.dart';
 import 'package:project/features/home/widgets/rank_listtile.dart';
@@ -12,9 +13,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: const Text(
           "Crystal Clear",
@@ -47,7 +51,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: BottomBar(
+        scaffoldKey: scaffoldKey,
+      ),
+      endDrawerEnableOpenDragGesture: false,
+      endDrawer: const MoreDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Wrap(
