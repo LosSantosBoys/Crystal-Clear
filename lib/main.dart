@@ -7,6 +7,7 @@ import 'package:crystalclear/features/home/pages/collection_page.dart';
 import 'package:crystalclear/features/home/pages/home_page.dart';
 import 'package:crystalclear/features/home/pages/leaderboard_page.dart';
 import 'package:crystalclear/features/home/pages/map_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        primaryColor: const Color(0xFF386BF6),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
@@ -29,6 +31,10 @@ class MyApp extends StatelessWidget {
           ),
           titleSpacing: 24,
         ),
+        textTheme: GoogleFonts.interTextTheme(
+          Theme.of(context).textTheme,
+        ),
+        fontFamily: GoogleFonts.inter().fontFamily,
         snackBarTheme: const SnackBarThemeData(
           backgroundColor: Colors.white,
           contentTextStyle: TextStyle(color: Colors.black),
