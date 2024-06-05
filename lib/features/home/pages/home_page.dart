@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project/core/widgets/bottom_bar.dart';
-import 'package:project/core/widgets/collection_grid.dart';
+import 'package:project/features/home/widgets/collection_grid.dart';
 import 'package:project/core/widgets/section_widget.dart';
+import 'package:project/features/home/widgets/rank_listtile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -88,127 +89,26 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   shrinkWrap: true,
                   padding: EdgeInsets.zero,
-                  children: [
-                    ListTile(
-                      title: Row(
-                        children: [
-                          Container(
-                            width: 36,
-                            height: 36,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              image: const DecorationImage(
-                                image: NetworkImage("https://xsgames.co/randomusers/avatar.php?g=male"),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Text("Nome Sobrenome"),
-                        ],
-                      ),
-                      leading: const Icon(
-                        Icons.workspace_premium_outlined,
-                        color: Color(0xFFFFC700),
-                      ),
-                      trailing: const Text("1000 pts"),
-                      tileColor: const Color(0xFFFEF8ED),
-                      contentPadding: const EdgeInsets.all(5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
+                  children: const [
+                    RankListTile(
+                      name: "Nome Sobrenome",
+                      points: 1000,
+                      position: 1,
                     ),
-                    const SizedBox(height: 5),
-                    ListTile(
-                      title: Row(
-                        children: [
-                          Container(
-                            width: 36,
-                            height: 36,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              image: const DecorationImage(
-                                image: NetworkImage("https://xsgames.co/randomusers/avatar.php?g=male"),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Text("Nome Sobrenome"),
-                        ],
-                      ),
-                      leading: const Icon(
-                        Icons.workspace_premium_outlined,
-                        color: Color(0xFFC7C7CA),
-                      ),
-                      trailing: const Text("800 pts"),
-                      tileColor: const Color(0xFFFAFAFA),
-                      contentPadding: const EdgeInsets.all(5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
+                    RankListTile(
+                      name: "Nome Sobrenome",
+                      points: 900,
+                      position: 2,
                     ),
-                    const SizedBox(height: 5),
-                    ListTile(
-                      title: Row(
-                        children: [
-                          Container(
-                            width: 36,
-                            height: 36,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              image: const DecorationImage(
-                                image: NetworkImage("https://xsgames.co/randomusers/avatar.php?g=male"),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Text("Nome Sobrenome"),
-                        ],
-                      ),
-                      leading: const Icon(
-                        Icons.workspace_premium_outlined,
-                        color: Color(0xFFE3824D),
-                      ),
-                      trailing: const Text("700 pts"),
-                      tileColor: const Color(0xFFf4eae5),
-                      contentPadding: const EdgeInsets.all(5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
+                    RankListTile(
+                      name: "Nome Sobrenome",
+                      points: 800,
+                      position: 3,
                     ),
-                    const SizedBox(height: 5),
-                    ListTile(
-                      title: Row(
-                        children: [
-                          Container(
-                            width: 36,
-                            height: 36,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              image: const DecorationImage(
-                                image: NetworkImage("https://xsgames.co/randomusers/avatar.php?g=male"),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Text("Você"),
-                        ],
-                      ),
-                      leading: const Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          "8",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      trailing: const Text("400 pts"),
-                      tileColor: const Color(0xFFe3e8f6),
-                      contentPadding: const EdgeInsets.all(5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
+                    RankListTile(
+                      name: "Você",
+                      points: 600,
+                      position: 8,
                     ),
                   ],
                 ),
