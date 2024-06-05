@@ -87,12 +87,18 @@ Color lighten(Color color, [double amount = .1]) {
 }
 
 extension StringExtension on String {
+  /// Capitalizes the first letter of a string.
+  ///
+  /// Returns a new string with the first letter capitalized and the rest of the string unchanged.
   String capitalize() {
     return "${this[0].toUpperCase()}${substring(1)}";
   }
 }
 
 extension UserExtension on String {
+  /// Extracts the username from a string that follows the format of an email address.
+  /// 
+  /// Returns the username portion of the string.
   String toUsername() {
     return split('@').first;
   }
