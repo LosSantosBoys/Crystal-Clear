@@ -1,3 +1,5 @@
+import 'package:crystalclear/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:crystalclear/features/auth/pages/forgot_password_page.dart';
 import 'package:crystalclear/features/auth/pages/login_basic_page.dart';
@@ -9,7 +11,9 @@ import 'package:crystalclear/features/home/pages/leaderboard_page.dart';
 import 'package:crystalclear/features/home/pages/map_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+Future<void> main() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
