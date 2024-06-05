@@ -1,3 +1,7 @@
+import 'package:crystalclear/core/enum/service_status.dart';
+import 'package:crystalclear/core/models/service_return.dart';
+import 'package:crystalclear/core/services/auth_service.dart';
+import 'package:crystalclear/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class MoreDrawer extends StatelessWidget {
@@ -170,7 +174,19 @@ class MoreDrawer extends StatelessWidget {
             leading: const Icon(Icons.exit_to_app_outlined),
             title: const Text("Sair"),
             contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-            onTap: () => Navigator.pushReplacementNamed(context, '/login'),
+            onTap: () async {
+              final ServiceReturn result = await AuthService().logout();
+
+              if (result.status == ServiceStatus.success) {
+                if (context.mounted) {
+                  Navigator.pushReplacementNamed(context, '/login');
+                }
+              } else {
+                if (context.mounted) {
+                  context.showErrorSnackbar("Erro ao sair. Tente novamente.");
+                }
+              }
+            },
           ),
         ],
       ),
