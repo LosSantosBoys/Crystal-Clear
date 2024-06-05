@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/features/auth/pages/login/login_basic_page.dart';
 import 'package:project/features/auth/pages/login_screen.dart';
-import 'package:project/features/auth/pages/sign_up_screen.dart';
+import 'package:project/features/auth/pages/sign_up/sign_up_page.dart';
 import 'package:project/features/home/pages/collection_page.dart';
 import 'package:project/features/home/pages/home_page.dart';
 import 'package:project/features/home/pages/leaderboard_page.dart';
@@ -80,8 +80,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/login': (context) => LoginScreen(),
-        '/login/basic': (context) => LoginBasicPage(),
-        '/signup': (context) => const SignUpScreen(),
+        '/login/basic': (context) => const LoginBasicPage(),
+        '/signup': (context) => const SignUpPage(),
         '/home': (context) => const HomePage(),
         '/collections': (context) => const CollectionsPage(),
         '/map': (context) => const MapPage(),
