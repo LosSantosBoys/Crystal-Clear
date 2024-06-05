@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crystalclear/core/enum/service_status.dart';
 import 'package:crystalclear/core/models/service_return.dart';
 import 'package:crystalclear/core/services/auth_service.dart';
 import 'package:crystalclear/core/utils/utils.dart';
+import 'package:crystalclear/core/widgets/avatar.dart';
 import 'package:flutter/material.dart';
 
 class MoreDrawer extends StatelessWidget {
@@ -48,13 +50,16 @@ class MoreDrawer extends StatelessWidget {
                       ),
                     ],
                   ),
-                  trailing: const Column(
+                  trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox.square(
                         dimension: 54,
-                        child: CircleAvatar(),
-                      )
+                        child: Avatar(
+                          name: AuthService().getUser()?.displayName ?? "Usuário",
+                          photoURL: AuthService().getUser()?.photoURL,
+                        ),
+                      ),
                     ],
                   ),
                 ),
