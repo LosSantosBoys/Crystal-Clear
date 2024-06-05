@@ -12,6 +12,8 @@ class LoginBasicPage extends StatefulWidget {
 class _LoginBasicPageState extends State<LoginBasicPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  
+  bool showPassword = false;
   bool rememberMe = false;
 
   @override
@@ -113,10 +115,21 @@ class _LoginBasicPageState extends State<LoginBasicPage> {
                   const SizedBox(height: 10),
                   TextField(
                     controller: passwordController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Senha',
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            showPassword = !showPassword;
+                          });
+                        },
+                        icon: Icon(
+                          showPassword ? Icons.visibility_off : Icons.visibility,
+                          color: const Color(0xFF7d7d7d),
+                        ),
+                      ),
                     ),
-                    obscureText: true,
+                    obscureText: !showPassword,
                   ),
                 ],
               ),
