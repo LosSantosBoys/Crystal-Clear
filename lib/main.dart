@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:project/features/auth/pages/forgot_password_page.dart';
-import 'package:project/features/auth/pages/login_basic_page.dart';
-import 'package:project/features/auth/pages/login_screen.dart';
-import 'package:project/features/auth/pages/sign_up_page.dart';
-import 'package:project/features/home/pages/collection_page.dart';
-import 'package:project/features/home/pages/home_page.dart';
-import 'package:project/features/home/pages/leaderboard_page.dart';
-import 'package:project/features/home/pages/map_page.dart';
+import 'package:crystalclear/features/auth/pages/forgot_password_page.dart';
+import 'package:crystalclear/features/auth/pages/login_basic_page.dart';
+import 'package:crystalclear/features/auth/pages/login_screen.dart';
+import 'package:crystalclear/features/auth/pages/sign_up_page.dart';
+import 'package:crystalclear/features/home/pages/collection_page.dart';
+import 'package:crystalclear/features/home/pages/home_page.dart';
+import 'package:crystalclear/features/home/pages/leaderboard_page.dart';
+import 'package:crystalclear/features/home/pages/map_page.dart';
 
 void main() {
   runApp(const MyApp());

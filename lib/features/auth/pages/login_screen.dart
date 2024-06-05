@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project/core/widgets/custom_button.dart';
-import 'package:project/features/auth/enum/social_enum.dart';
-import 'package:project/features/auth/widgets/social_button.dart';
+import 'package:crystalclear/core/widgets/custom_button.dart';
+import 'package:crystalclear/features/auth/enum/social_enum.dart';
+import 'package:crystalclear/features/auth/widgets/social_button.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();

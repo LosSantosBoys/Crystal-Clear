@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/core/widgets/custom_button.dart';
+import 'package:crystalclear/core/widgets/custom_button.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   ForgotPasswordPage({super.key});

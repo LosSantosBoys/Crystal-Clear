@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/core/utils/utils.dart';
-import 'package:project/features/auth/enum/social_enum.dart';
+import 'package:crystalclear/core/utils/utils.dart';
+import 'package:crystalclear/features/auth/enum/social_enum.dart';
 
 class SocialButton extends StatelessWidget {
   const SocialButton({super.key, required this.type});

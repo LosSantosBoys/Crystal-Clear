@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/features/home/widgets/collection_grid.dart';
-import 'package:project/core/widgets/section_widget.dart';
+import 'package:crystalclear/features/home/widgets/collection_grid.dart';
+import 'package:crystalclear/core/widgets/section_widget.dart';
 
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});

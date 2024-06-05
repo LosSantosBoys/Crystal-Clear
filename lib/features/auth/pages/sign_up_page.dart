@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/core/services/db_service.dart';
-import 'package:project/core/widgets/custom_button.dart';
+import 'package:crystalclear/core/services/db_service.dart';
+import 'package:crystalclear/core/widgets/custom_button.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
