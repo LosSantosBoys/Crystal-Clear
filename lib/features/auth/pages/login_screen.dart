@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 const SocialButton(type: SocialEnum.google),
                 const SizedBox(height: 10),
-                const SocialButton(type: SocialEnum.meta),
+                const SocialButton(type: SocialEnum.meta, enabled: false,),
                 const SizedBox(height: 10),
                 CustomButton(
                   text: 'Login',
