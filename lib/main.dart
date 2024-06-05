@@ -27,6 +27,10 @@ class MyApp extends StatelessWidget {
           ),
           titleSpacing: 24,
         ),
+        snackBarTheme: const SnackBarThemeData(
+          backgroundColor: Colors.white,
+          contentTextStyle: TextStyle(color: Colors.black),
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
