@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crystalclear/core/enum/service_status.dart';
 import 'package:crystalclear/core/models/service_return.dart';
 import 'package:crystalclear/core/services/auth_service.dart';
