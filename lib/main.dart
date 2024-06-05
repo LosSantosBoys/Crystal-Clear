@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/features/auth/pages/login/login_basic_page.dart';
 import 'package:project/features/auth/pages/login_screen.dart';
 import 'package:project/features/auth/pages/sign_up_screen.dart';
 import 'package:project/features/home/pages/collection_page.dart';
@@ -46,13 +47,14 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/login': (context) => LoginScreen(),
+        '/login/basic': (context) => LoginBasicPage(),
         '/signup': (context) => const SignUpScreen(),
         '/home': (context) => const HomePage(),
         '/collections': (context) => const CollectionsPage(),
         '/map': (context) => const MapPage(),
         '/leaderboard': (context) => const LeaderboardPage(),
       },
-      initialRoute: '/home',
+      initialRoute: '/login',
     );
   }
 }
