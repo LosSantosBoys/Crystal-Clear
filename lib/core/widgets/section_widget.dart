@@ -25,7 +25,7 @@ class Section extends StatelessWidget {
                 headerTitle,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 18,
                 ),
               ),
               if (headerTrailing != null) headerTrailing!,
