@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:project/core/widgets/bottom_bar.dart';
 import 'package:project/core/widgets/more_drawer.dart';
 import 'package:project/features/home/widgets/collection_grid.dart';
@@ -14,6 +16,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    askForLocationPermission();
+
+  }
+
+  void askForLocationPermission() async {
+    PermissionStatus status = await Permission.location.status;
+
+    if (status.isDenied) {
+      await Permission.location.request();
+    } else if (status.isPermanentlyDenied) {
+      await openAppSettings();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,15 +92,18 @@ class _HomePageState extends State<HomePage> {
               headerTitle: "Encontre entulhos próximos",
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   height: 312,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      // todo: change to working map
-                      image: NetworkImage("https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/02/google-maps-e1707316052388.png"),
-                      fit: BoxFit.cover,
+                  child: GoogleMap(
+                    mapType: MapType.normal,
+                    initialCameraPosition: const CameraPosition(
+                      target: LatLng(-23.5505, -46.6333),
+                      zoom: 11,
                     ),
+                    zoomGesturesEnabled: false,
+                    zoomControlsEnabled: false,
+                    onTap: (_) => Navigator.pushNamed(context, '/map'),
                   ),
                 ),
               ),
