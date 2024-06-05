@@ -12,6 +12,11 @@ import 'package:flutter/material.dart';
 /// user avatar or placeholders.
 ///
 /// Returns a [Color] object representing the generated color.
+/// 
+/// Example usage:
+/// ```dart
+/// Color color = generateRandomColor(seed: "example");
+/// ```
 Color generateRandomColor({String? seed}) {
   Color? color;
 
@@ -35,6 +40,20 @@ Color generateRandomColor({String? seed}) {
   return color;
 }
 
+/// Darkens the given [color] by the specified [amount].
+///
+/// The [amount] parameter should be a value between 0 and 1, where 0 represents
+/// no darkening and 1 represents maximum darkening. Values outside this range
+/// will be clamped to the nearest valid value.
+///
+/// This function uses the HSL color model to darken the color. It converts the
+/// given [color] to HSL, adjusts the lightness component by subtracting the
+/// [amount], and then converts the modified HSL color back to RGB.
+///
+/// Example usage:
+/// ```dart
+/// Color darkenedColor = darken(Colors.blue, 0.2);
+/// ```
 Color darken(Color color, [double amount = .1]) {
   assert(amount >= 0 && amount <= 1);
 
@@ -44,6 +63,20 @@ Color darken(Color color, [double amount = .1]) {
   return hslDark.toColor();
 }
 
+/// Lightens the given [color] by the specified [amount].
+///
+/// The [amount] parameter should be a value between 0 and 1, where 0 represents
+/// no lighting and 1 represents maximum lighting. Values outside this range
+/// will be clamped to the nearest valid value.
+///
+/// This function uses the HSL color model to lighten the color. It converts the
+/// given [color] to HSL, adjusts the lightness component by adding the
+/// [amount], and then converts the modified HSL color back to RGB.
+///
+/// Example usage:
+/// ```dart
+/// Color lightnedColor = lighten(Colors.blue, 0.2);
+/// ```
 Color lighten(Color color, [double amount = .1]) {
   assert(amount >= 0 && amount <= 1);
 
