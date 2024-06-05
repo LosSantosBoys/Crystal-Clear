@@ -1,3 +1,6 @@
+import 'package:crystalclear/core/enum/service_status.dart';
+import 'package:crystalclear/core/models/service_return.dart';
+import 'package:crystalclear/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:crystalclear/core/services/auth_service.dart';
 import 'package:crystalclear/core/widgets/custom_button.dart';
@@ -30,35 +33,18 @@ class _LoginBasicPageState extends State<LoginBasicPage> {
           text: 'Login',
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
-              bool isAuthenticated = await AuthService.login(
-                emailController.text,
-                passwordController.text,
-              );
-              if (isAuthenticated) {
-                // Navegar para a próxima tela
+              final String email = emailController.text.trim();
+              final String password = passwordController.text.trim();
+
+              final ServiceReturn result = await AuthService().login(email: email, password: password);
+
+              if (result.status == ServiceStatus.success) {
                 if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Login bem-sucedido!'),
-                    ),
-                  );
+                  Navigator.pushNamed(context, '/home');
                 }
               } else {
                 if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Row(
-                        children: [
-                          Icon(
-                            Icons.error_outline,
-                            color: Colors.red,
-                          ),
-                          SizedBox(width: 10),
-                          Text("E-mail ou senha incorretos."),
-                        ],
-                      ),
-                    ),
-                  );
+                  context.showErrorSnackbar("E-mail ou senha incorretos.");
                 }
               }
             }
