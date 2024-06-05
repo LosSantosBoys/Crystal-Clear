@@ -1,3 +1,4 @@
+import 'package:crystalclear/core/services/auth_service.dart';
 import 'package:crystalclear/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -91,6 +92,21 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
+        '/': (context) => FutureBuilder<bool>(
+              future: AuthService().isAuthenticated(),
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.done:
+                    return snapshot.data! ? const HomePage() : LoginScreen();
+                  default:
+                    return const Scaffold(
+                      body: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                }
+              },
+            ),
         '/login': (context) => LoginScreen(),
         '/login/basic': (context) => const LoginBasicPage(),
         '/signup': (context) => const SignUpPage(),
@@ -100,7 +116,7 @@ class MyApp extends StatelessWidget {
         '/map': (context) => const MapPage(),
         '/leaderboard': (context) => const LeaderboardPage(),
       },
-      initialRoute: '/login',
+      initialRoute: '/',
     );
   }
 }
