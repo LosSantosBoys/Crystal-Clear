@@ -10,9 +10,11 @@ class LoginBasicPage extends StatefulWidget {
 }
 
 class _LoginBasicPageState extends State<LoginBasicPage> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  
+
   bool showPassword = false;
   bool rememberMe = false;
 
@@ -27,26 +29,37 @@ class _LoginBasicPageState extends State<LoginBasicPage> {
         child: CustomButton(
           text: 'Login',
           onPressed: () async {
-            bool isAuthenticated = await AuthService.login(
-              emailController.text,
-              passwordController.text,
-            );
-            if (isAuthenticated) {
-              // Navegar para a próxima tela
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Login bem-sucedido!'),
-                  ),
-                );
-              }
-            } else {
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Email ou senha incorretos!'),
-                  ),
-                );
+            if (formKey.currentState!.validate()) {
+              bool isAuthenticated = await AuthService.login(
+                emailController.text,
+                passwordController.text,
+              );
+              if (isAuthenticated) {
+                // Navegar para a próxima tela
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Login bem-sucedido!'),
+                    ),
+                  );
+                }
+              } else {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Row(
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            color: Colors.red,
+                          ),
+                          SizedBox(width: 10),
+                          Text("E-mail ou senha incorretos."),
+                        ],
+                      ),
+                    ),
+                  );
+                }
               }
             }
           },
@@ -76,60 +89,82 @@ class _LoginBasicPageState extends State<LoginBasicPage> {
               ),
             ),
             const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+            Form(
+              key: formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "E-mail",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: 'E-mail',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Senha",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      hintText: 'Senha',
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            showPassword = !showPassword;
-                          });
-                        },
-                        icon: Icon(
-                          showPassword ? Icons.visibility_off : Icons.visibility,
-                          color: const Color(0xFF7d7d7d),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "E-mail",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                              hintText: 'E-mail',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor, insira um e-mail.';
+                              }
+
+                              return null;
+                            }),
+                      ],
                     ),
-                    obscureText: !showPassword,
+                  ),
+                  const SizedBox(height: 5),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Senha",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                            hintText: 'Senha',
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  showPassword = !showPassword;
+                                });
+                              },
+                              icon: Icon(
+                                showPassword ? Icons.visibility_off : Icons.visibility,
+                                color: const Color(0xFF7d7d7d),
+                              ),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira uma senha.';
+                            }
+
+                            return null;
+                          },
+                          obscureText: !showPassword,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
