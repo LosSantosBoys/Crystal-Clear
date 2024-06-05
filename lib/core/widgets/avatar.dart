@@ -23,14 +23,18 @@ class Avatar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        color: generateRandomColor(),
+        color: generateRandomColor(seed: name),
       ),
-      child: Center(
-        child: Text(
-          name.split(" ").map((e) => e[0]).join(),
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Center(
+          child: Text(
+            name.split(" ").map((e) => e[0]).join(),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
         ),
       ),
