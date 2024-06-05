@@ -10,7 +10,7 @@ class LoginBasicPage extends StatefulWidget {
 }
 
 class _LoginBasicPageState extends State<LoginBasicPage> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -29,7 +29,7 @@ class _LoginBasicPageState extends State<LoginBasicPage> {
         child: CustomButton(
           text: 'Login',
           onPressed: () async {
-            if (formKey.currentState!.validate()) {
+            if (_formKey.currentState!.validate()) {
               bool isAuthenticated = await AuthService.login(
                 emailController.text,
                 passwordController.text,
@@ -90,7 +90,7 @@ class _LoginBasicPageState extends State<LoginBasicPage> {
             ),
             const SizedBox(height: 10),
             Form(
-              key: formKey,
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,18 +109,19 @@ class _LoginBasicPageState extends State<LoginBasicPage> {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
-                            controller: emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                              hintText: 'E-mail',
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Por favor, insira um e-mail.';
-                              }
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(
+                            hintText: 'E-mail',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira um e-mail.';
+                            }
 
-                              return null;
-                            }),
+                            return null;
+                          },
+                        ),
                       ],
                     ),
                   ),
