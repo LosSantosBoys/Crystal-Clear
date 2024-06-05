@@ -31,6 +31,15 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
           contentTextStyle: TextStyle(color: Colors.black),
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: const Color(0xFFFAFAFA),
+          filled: true,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+        ),
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
