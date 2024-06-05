@@ -1,17 +1,35 @@
 import 'package:flutter/material.dart';
 
+/// Generates a random color based on the provided seed.
+///
+/// The [seed] parameter is an optional string used to generate a unique color.
+/// If no seed is provided, a random color will be generated.
+/// The generated color will be darkened if its luminance is less than 0.5.
+/// 
+/// This method is computationally expensive to calculate, therefore it is not
+/// recommended to use it in performance-critical scenarios. It is best used for
+/// generating colors for UI elements that do not require frequent updates, like
+/// user avatar or placeholders.
+///
+/// Returns a [Color] object representing the generated color.
 Color generateRandomColor({String? seed}) {
-  final int hash = seed.hashCode;
+  Color? color;
 
-  final int r = (hash & 0xFF0000) >> 16;
-  final int g = (hash & 0x00FF00) >> 8;
-  final int b = hash & 0x0000FF;
-  const double opacity = 1.0;
+  if (seed != null) {
+    final int hash = seed.hashCode;
 
-  Color color = Color.fromRGBO(r, g, b, opacity);
+    final int r = (hash & 0xFF0000) >> 16;
+    final int g = (hash & 0x00FF00) >> 8;
+    final int b = hash & 0x0000FF;
+    const double opacity = 1.0;
 
-  if (color.computeLuminance() < 0.5) {
-    color = lighten(color, 0.1);
+    color = Color.fromRGBO(r, g, b, opacity);
+  } else {
+    color = Color((DateTime.now().millisecondsSinceEpoch / 10).floor() % 0xFFFFFFFF);
+  }
+
+  if (color.computeLuminance() <= 0.5) {
+    color = darken(color, 0.12);
   }
 
   return color;
