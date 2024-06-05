@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:project/core/services/auth_service.dart';
 import 'package:project/core/widgets/custom_button.dart';
 
-class LoginBasicPage extends StatelessWidget {
+class LoginBasicPage extends StatefulWidget {
+  const LoginBasicPage({super.key});
+
+  @override
+  State<LoginBasicPage> createState() => _LoginBasicPageState();
+}
+
+class _LoginBasicPageState extends State<LoginBasicPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-  LoginBasicPage({super.key});
+  bool rememberMe = false;
 
   @override
   Widget build(BuildContext context) {
@@ -117,8 +123,12 @@ class LoginBasicPage extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             CheckboxListTile(
-              value: false,
-              onChanged: (value) {},
+              value: rememberMe,
+              onChanged: (_) {
+                setState(() {
+                  rememberMe = !rememberMe;
+                });
+              },
               contentPadding: EdgeInsets.zero,
               controlAffinity: ListTileControlAffinity.leading,
               title: Row(
