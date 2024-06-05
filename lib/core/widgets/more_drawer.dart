@@ -16,14 +16,14 @@ class MoreDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 15),
+            padding: const EdgeInsets.only(left: 24, right: 24, top: 30, bottom: 15),
             child: Column(
               children: [
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    "Nome Sobrenome",
-                    style: TextStyle(
+                  title: Text(
+                    AuthService().getUser()?.displayName ?? "Usuário",
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
