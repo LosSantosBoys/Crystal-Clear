@@ -40,6 +40,39 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide.none,
           ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Color(0XFF8395d6),
+              width: 2,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Color(0XFFFFADB9),
+              width: 2,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Color(0xFFC7C7CA),
+            ),
+          ),
+          errorStyle: const TextStyle(
+            color: Color(0XFFE30000),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Color(0XFFE30000),
+            ),
+          ),
         ),
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
