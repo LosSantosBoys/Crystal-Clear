@@ -170,7 +170,7 @@ class MoreDrawer extends StatelessWidget {
             leading: const Icon(Icons.exit_to_app_outlined),
             title: const Text("Sair"),
             contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-            onTap: () {},
+            onTap: () => Navigator.pushReplacementNamed(context, '/login'),
           ),
         ],
       ),
