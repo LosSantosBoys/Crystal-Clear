@@ -1,6 +1,5 @@
 import 'package:crystalclear/core/enum/service_status.dart';
 import 'package:crystalclear/core/models/service_return.dart';
-import 'package:crystalclear/core/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -12,10 +11,10 @@ class AuthService {
     aOptions: AndroidOptions(encryptedSharedPreferences: true),
   );
 
-  Future<ServiceReturn> createAccount({required String email, required String password}) async {
+  Future<ServiceReturn> createAccount({required String name, required String email, required String password}) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      await _auth.currentUser!.updateDisplayName(email.toUsername());
+      await _auth.currentUser!.updateDisplayName(name);
 
       if (await _auth.currentUser!.getIdToken() == null) {
         return ServiceReturn(status: ServiceStatus.error, message: 'Erro ao criar uma conta com e-mail e senha. Tente novamente mais tarde.');
