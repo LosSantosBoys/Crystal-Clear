@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-Color generateRandomColor() {
-  Color color = Color((DateTime.now().millisecondsSinceEpoch / 10).floor() % 0xFFFFFFFF);
+Color generateRandomColor({String? seed}) {
+  final int hash = seed.hashCode;
+
+  final int r = (hash & 0xFF0000) >> 16;
+  final int g = (hash & 0x00FF00) >> 8;
+  final int b = hash & 0x0000FF;
+  const double opacity = 1.0;
+
+  Color color = Color.fromRGBO(r, g, b, opacity);
 
   if (color.computeLuminance() < 0.5) {
     color = lighten(color, 0.1);
