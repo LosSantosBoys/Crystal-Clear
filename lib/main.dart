@@ -3,6 +3,7 @@ import 'package:project/features/auth/pages/login_screen.dart';
 import 'package:project/features/auth/pages/sign_up_screen.dart';
 import 'package:project/features/home/pages/collection_page.dart';
 import 'package:project/features/home/pages/home_page.dart';
+import 'package:project/features/home/pages/leaderboard_page.dart';
 import 'package:project/features/home/pages/map_page.dart';
 
 void main() {
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/collections': (context) => const CollectionsPage(),
         '/map': (context) => const MapPage(),
+        '/leaderboard': (context) => const LeaderboardPage(),
       },
       initialRoute: '/home',
     );
