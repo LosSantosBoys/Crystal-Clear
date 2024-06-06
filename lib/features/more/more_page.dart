@@ -166,7 +166,7 @@ class MoreDrawer extends StatelessWidget {
             leading: const Icon(Icons.settings_outlined),
             title: const Text("Configurações"),
             contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(context, '/settings'),
           ),
           ListTile(
             leading: const Icon(Icons.help_outline),
