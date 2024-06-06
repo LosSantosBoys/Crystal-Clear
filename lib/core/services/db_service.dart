@@ -40,7 +40,16 @@ class DatabaseService {
     return await db.insert('users', {'name': name, 'email': email, 'password': password});
   }
 
-  static Future<int> insertTrashReport(int userId, String description, String category, String imagePath, String? latitude, String? longitude, int quantity, String item) async {
+  static Future<int> insertTrashReport(
+    int userId,
+    String description,
+    String category,
+    String imagePath,
+    String? latitude,
+    String? longitude,
+    int quantity,
+    String item,
+  ) async {
     final db = await database;
     return await db.insert('trash_reports', {
       'id_issuer': userId,
@@ -87,13 +96,7 @@ class DatabaseService {
 
   static Future<int> insertTrashCollect(int idReport, int idAssignee, String createdAt, int isDone, String address) async {
     final db = await database;
-    return await db.insert('trash_collect', {
-      'id_report': idReport,
-      'id_assignee': idAssignee,
-      'created_at': createdAt,
-      'is_done': isDone,
-      'address': address
-    });
+    return await db.insert('trash_collect', {'id_report': idReport, 'id_assignee': idAssignee, 'created_at': createdAt, 'is_done': isDone, 'address': address});
   }
 
   static Future<List<Map<String, dynamic>>> getActiveTrashCollect(int userId) async {
@@ -120,12 +123,8 @@ class DatabaseService {
 
   static Future<void> markTrashCollectionAsDone(int trashReportId, int trashCollectId, String imagePath) async {
     final db = await database;
-    await db.rawUpdate(
-      'UPDATE trash_reports SET is_done = 1 WHERE id = ?', [trashReportId]
-    );
-    await db.rawUpdate(
-      'UPDATE trash_collect SET is_done = 1, image_path = ? where id = ?', [imagePath, trashCollectId]
-    );
+    await db.rawUpdate('UPDATE trash_reports SET is_done = 1 WHERE id = ?', [trashReportId]);
+    await db.rawUpdate('UPDATE trash_collect SET is_done = 1, image_path = ? where id = ?', [imagePath, trashCollectId]);
   }
 
   static Future<void> updateUserPoints(int userId, int points) async {
@@ -137,14 +136,13 @@ class DatabaseService {
   }
 
   static Future<List<Map<String, dynamic>>> getActiveTrashCollectWithDetails(int userId) async {
-  final db = await database;
-  final List<Map<String, dynamic>> result = await db.rawQuery('''
+    final db = await database;
+    final List<Map<String, dynamic>> result = await db.rawQuery('''
     SELECT trash_collect.*, trash_reports.item, trash_reports.image_path, trash_reports.latitude, trash_reports.longitude, trash_reports.created_at, trash_reports.points as report_points
     FROM trash_collect
     INNER JOIN trash_reports ON trash_collect.id_report = trash_reports.id
     WHERE trash_collect.id_assignee = ? AND trash_collect.is_done = ?
   ''', [userId, 0]);
-  return result;
-}
-
+    return result;
+  }
 }
