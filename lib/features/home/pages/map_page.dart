@@ -70,6 +70,42 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
+  void openSearchSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      enableDrag: true,
+      isDismissible: true,
+      builder: (BuildContext context) {
+        return const SizedBox(
+          height: 200,
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  "Pesquisar",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Pesquisar",
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +143,7 @@ class _MapPageState extends State<MapPage> {
           ),
           const SizedBox(height: 10),
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () => openSearchSheet(context),
             heroTag: null,
             backgroundColor: Colors.white,
             child: const Icon(

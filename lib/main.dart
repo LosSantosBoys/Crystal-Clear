@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:project/features/auth/pages/login_screen.dart';
-import 'package:project/features/auth/pages/sign_up_screen.dart';
-import 'package:project/features/home/pages/collection_page.dart';
-import 'package:project/features/home/pages/home_page.dart';
-import 'package:project/features/home/pages/leaderboard_page.dart';
-import 'package:project/features/home/pages/map_page.dart';
+import 'package:crystalclear/features/auth/pages/forgot_password_page.dart';
+import 'package:crystalclear/features/auth/pages/login_basic_page.dart';
+import 'package:crystalclear/features/auth/pages/login_screen.dart';
+import 'package:crystalclear/features/auth/pages/sign_up_page.dart';
+import 'package:crystalclear/features/home/pages/collection_page.dart';
+import 'package:crystalclear/features/home/pages/home_page.dart';
+import 'package:crystalclear/features/home/pages/leaderboard_page.dart';
+import 'package:crystalclear/features/home/pages/map_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        primaryColor: const Color(0xFF386BF6),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
@@ -27,9 +31,55 @@ class MyApp extends StatelessWidget {
           ),
           titleSpacing: 24,
         ),
+        textTheme: GoogleFonts.interTextTheme(
+          Theme.of(context).textTheme,
+        ),
+        fontFamily: GoogleFonts.inter().fontFamily,
         snackBarTheme: const SnackBarThemeData(
           backgroundColor: Colors.white,
           contentTextStyle: TextStyle(color: Colors.black),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: const Color(0xFFFAFAFA),
+          filled: true,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Color(0XFF8395d6),
+              width: 2,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Color(0XFFFFADB9),
+              width: 2,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Color(0xFFC7C7CA),
+            ),
+          ),
+          errorStyle: const TextStyle(
+            color: Color(0XFFE30000),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Color(0XFFE30000),
+            ),
+          ),
         ),
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -37,13 +87,15 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/login': (context) => LoginScreen(),
-        '/signup': (context) => const SignUpScreen(),
+        '/login/basic': (context) => const LoginBasicPage(),
+        '/signup': (context) => const SignUpPage(),
+        '/forgot-password': (context) => ForgotPasswordPage(),
         '/home': (context) => const HomePage(),
         '/collections': (context) => const CollectionsPage(),
         '/map': (context) => const MapPage(),
         '/leaderboard': (context) => const LeaderboardPage(),
       },
-      initialRoute: '/home',
+      initialRoute: '/login',
     );
   }
 }

@@ -1,4 +1,4 @@
-package com.example.project
+package com.lossantos.crystalclear
 
 import io.flutter.embedding.android.FlutterActivity
 

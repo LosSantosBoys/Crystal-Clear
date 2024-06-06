@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:project/core/widgets/section_widget.dart';
-import 'package:project/features/home/widgets/rank_listtile.dart';
+import 'package:crystalclear/core/widgets/section_widget.dart';
+import 'package:crystalclear/features/home/widgets/rank_listtile.dart';
 
 class LeaderboardPage extends StatefulWidget {
   const LeaderboardPage({super.key});

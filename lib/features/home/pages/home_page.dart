@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:project/core/widgets/bottom_bar.dart';
-import 'package:project/core/widgets/more_drawer.dart';
-import 'package:project/features/home/widgets/collection_grid.dart';
-import 'package:project/core/widgets/section_widget.dart';
-import 'package:project/features/home/widgets/rank_listtile.dart';
+import 'package:crystalclear/core/widgets/bottom_bar.dart';
+import 'package:crystalclear/core/widgets/more_drawer.dart';
+import 'package:crystalclear/features/home/widgets/collection_grid.dart';
+import 'package:crystalclear/core/widgets/section_widget.dart';
+import 'package:crystalclear/features/home/widgets/rank_listtile.dart';
 
 import 'report_trash_page.dart';
 
