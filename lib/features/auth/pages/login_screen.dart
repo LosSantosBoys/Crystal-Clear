@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/core/services/auth_service.dart';
 import 'package:project/core/widgets/custom_button.dart';
+import 'package:project/features/home/pages/home_page.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -78,8 +79,10 @@ class LoginScreen extends StatelessWidget {
                         passwordController.text,
                       );
                       if (isAuthenticated) {
-                        // Navegar para a próxima tela
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomePage()),
+                        );                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text('Login bem-sucedido!'),
                         ));
                       } else {

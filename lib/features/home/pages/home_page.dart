@@ -7,6 +7,8 @@ import 'package:project/features/home/widgets/collection_grid.dart';
 import 'package:project/core/widgets/section_widget.dart';
 import 'package:project/features/home/widgets/rank_listtile.dart';
 
+import 'report_trash_page.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -151,7 +153,10 @@ class _HomePageState extends State<HomePage> {
         dimension: 58,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ReportTrashPage()),
+            ),            
             elevation: 0,
             tooltip: "Sinalizar entulho",
             backgroundColor: const Color(0xFF386BF6),

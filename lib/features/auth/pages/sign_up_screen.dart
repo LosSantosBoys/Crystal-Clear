@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/core/services/db_service.dart';
 import 'package:project/core/widgets/custom_button.dart';
+import 'package:project/features/home/pages/home_page.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -30,6 +31,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         await DatabaseService.insertUser(_name, _email, _password);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Cadastro realizado com sucesso!')),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
         );
       }
     } else if (!_agreedToPrivacyPolicy) {
