@@ -1,3 +1,8 @@
+import 'package:crystalclear/core/enum/service_status.dart';
+import 'package:crystalclear/core/models/service_return.dart';
+import 'package:crystalclear/core/services/auth_service.dart';
+import 'package:crystalclear/core/utils/utils.dart';
+import 'package:crystalclear/core/widgets/avatar.dart';
 import 'package:flutter/material.dart';
 
 class MoreDrawer extends StatelessWidget {
@@ -12,14 +17,14 @@ class MoreDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 15),
+            padding: const EdgeInsets.only(left: 24, right: 24, top: 30, bottom: 15),
             child: Column(
               children: [
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    "Nome Sobrenome",
-                    style: TextStyle(
+                  title: Text(
+                    AuthService().getUser()?.displayName ?? "Usuário",
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -44,13 +49,16 @@ class MoreDrawer extends StatelessWidget {
                       ),
                     ],
                   ),
-                  trailing: const Column(
+                  trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox.square(
                         dimension: 54,
-                        child: CircleAvatar(),
-                      )
+                        child: Avatar(
+                          name: AuthService().getUser()?.displayName ?? "Usuário",
+                          photoURL: AuthService().getUser()?.photoURL,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -158,7 +166,7 @@ class MoreDrawer extends StatelessWidget {
             leading: const Icon(Icons.settings_outlined),
             title: const Text("Configurações"),
             contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(context, '/settings'),
           ),
           ListTile(
             leading: const Icon(Icons.help_outline),
@@ -170,7 +178,19 @@ class MoreDrawer extends StatelessWidget {
             leading: const Icon(Icons.exit_to_app_outlined),
             title: const Text("Sair"),
             contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-            onTap: () => Navigator.pushReplacementNamed(context, '/login'),
+            onTap: () async {
+              final ServiceReturn result = await AuthService().logout();
+
+              if (result.status == ServiceStatus.success) {
+                if (context.mounted) {
+                  Navigator.pushReplacementNamed(context, '/login');
+                }
+              } else {
+                if (context.mounted) {
+                  context.showErrorSnackbar("Erro ao sair. Tente novamente.");
+                }
+              }
+            },
           ),
         ],
       ),

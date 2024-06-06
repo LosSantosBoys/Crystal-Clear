@@ -1,5 +1,8 @@
+import 'package:crystalclear/core/enum/service_status.dart';
+import 'package:crystalclear/core/models/service_return.dart';
+import 'package:crystalclear/core/services/auth_service.dart';
+import 'package:crystalclear/core/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:crystalclear/core/services/db_service.dart';
 import 'package:crystalclear/core/widgets/custom_button.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -19,34 +22,33 @@ class _SignUpPageState extends State<SignUpPage> {
   bool showPassword = false;
   bool privacyPolicy = false;
 
-  Future<void> _handleSignUp() async {
+  Future<void> _handleSignUp(BuildContext context) async {
     if (_formKey.currentState!.validate() && privacyPolicy) {
       final String name = nameController.text.trim();
       final String email = emailController.text.trim();
       final String password = passwordController.text.trim();
 
-      bool emailExists = await DatabaseService.checkIfEmailExists(email);
-      if (emailExists) {
+      final ServiceReturn result = await AuthService().createAccount(
+        name: name,
+        email: email,
+        password: password,
+      );
+
+      if (result.status == ServiceStatus.success) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Este e-mail já está em uso.')),
-          );
+          Navigator.pushReplacementNamed(context, '/home');
         }
       } else {
-        await DatabaseService.insertUser(name, email, password);
-
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Cadastro realizado com sucesso!')),
-          );
+          context.showErrorSnackbar("Erro ao criar conta.");
         }
 
         Navigator.pushReplacementNamed(context, '/home');
       }
     } else if (!privacyPolicy) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Você deve concordar com a política de privacidade.')),
-      );
+      if (context.mounted) {
+        context.showErrorSnackbar("Você deve concordar com a política de privacidade.");
+      }
     }
   }
 
@@ -60,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
         padding: const EdgeInsets.all(24.0),
         child: CustomButton(
           text: 'Criar conta',
-          onPressed: () async => _handleSignUp(),
+          onPressed: () async => _handleSignUp(context),
         ),
       ),
       body: SingleChildScrollView(

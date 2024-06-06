@@ -1,3 +1,6 @@
+import 'package:crystalclear/core/services/auth_service.dart';
+import 'package:crystalclear/features/more/settings_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:crystalclear/features/auth/pages/forgot_password_page.dart';
 import 'package:crystalclear/features/auth/pages/login_basic_page.dart';
@@ -9,7 +12,12 @@ import 'package:crystalclear/features/home/pages/leaderboard_page.dart';
 import 'package:crystalclear/features/home/pages/map_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -23,6 +31,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: const Color(0xFF386BF6),
+        primaryColorLight: const Color(0xFF386BF6),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: const Color(0XFF386BF6),
+          )
+        ),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
@@ -86,6 +100,21 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
+        '/': (context) => FutureBuilder<bool>(
+              future: AuthService().isAuthenticated(),
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.done:
+                    return snapshot.data! ? const HomePage() : LoginScreen();
+                  default:
+                    return const Scaffold(
+                      body: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                }
+              },
+            ),
         '/login': (context) => LoginScreen(),
         '/login/basic': (context) => const LoginBasicPage(),
         '/signup': (context) => const SignUpPage(),
@@ -94,8 +123,9 @@ class MyApp extends StatelessWidget {
         '/collections': (context) => const CollectionsPage(),
         '/map': (context) => const MapPage(),
         '/leaderboard': (context) => const LeaderboardPage(),
+        '/settings': (context) => const SettingsPage(),
       },
-      initialRoute: '/login',
+      initialRoute: '/',
     );
   }
 }
