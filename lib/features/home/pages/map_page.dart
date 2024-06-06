@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:crystalclear/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -24,23 +25,13 @@ class _MapPageState extends State<MapPage> {
 
     if (status.isDenied) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Row(
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  color: Colors.red,
-                ),
-                SizedBox(width: 10),
-                Text("Permissão negada."),
-              ],
-            ),
-          ),
-        );
+        context.showErrorSnackbar("Permissão negada. Por favor, habilite a localização nas configurações do seu dispositivo.");
       }
+
+      await Permission.location.request();
     } else if (status.isPermanentlyDenied) {
       if (context.mounted) {
+        context.showErrorSnackbar("Permissão negada permanentemente. Por favor, habilite a localização nas configurações do seu dispositivo.");
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Row(

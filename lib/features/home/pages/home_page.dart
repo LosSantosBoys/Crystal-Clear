@@ -1,8 +1,10 @@
+import 'package:crystalclear/core/services/auth_service.dart';
+import 'package:crystalclear/core/widgets/avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:crystalclear/core/widgets/bottom_bar.dart';
-import 'package:crystalclear/core/widgets/more_drawer.dart';
+import 'package:crystalclear/features/more/more_page.dart';
 import 'package:crystalclear/features/home/widgets/collection_grid.dart';
 import 'package:crystalclear/core/widgets/section_widget.dart';
 import 'package:crystalclear/features/home/widgets/rank_listtile.dart';
@@ -21,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     askForLocationPermission();
-
   }
 
   void askForLocationPermission() async {
@@ -59,9 +60,9 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     // todo: redirect to profile page
                     onTap: () {},
-                    // todo: change the image URL
-                    child: const CircleAvatar(
-                      backgroundImage: NetworkImage("https://xsgames.co/randomusers/avatar.php?g=male"),
+                    child: Avatar(
+                      name: AuthService().getUser()?.displayName ?? "Usuário",
+                      photoURL: AuthService().getUser()?.photoURL,
                     ),
                   ),
                 ),
