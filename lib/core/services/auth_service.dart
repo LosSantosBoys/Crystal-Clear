@@ -36,7 +36,13 @@ class AuthService {
 
       return ServiceReturn(status: ServiceStatus.success);
     } on FirebaseAuthException catch (error) {
-      return ServiceReturn(status: ServiceStatus.error, message: error.message);
+      String message = "Erro ao deletar a conta. Tente novamente.";
+
+      if (error.code == 'requires-recent-login') {
+        message = "Para deletar a conta, você precisa fazer login novamente.";
+      }
+
+      return ServiceReturn(status: ServiceStatus.error, message: message);
     }
   }
 
