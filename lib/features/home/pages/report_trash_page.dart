@@ -87,9 +87,8 @@ class _ReportTrashPageState extends State<ReportTrashPage> {
     String description = _descriptionController.text;
     String category = _selectedCategory ?? '';
     String imagePath = _image?.path ?? '';
-    String location = _currentPosition != null
-        ? '(${_currentPosition!.latitude}, ${_currentPosition!.longitude})'
-        : '';
+    String? latitude = _currentPosition?.latitude.toString();
+    String? longitude = _currentPosition?.longitude.toString();
     int quantity = int.tryParse(_quantityController.text) ?? 0;
     String item = _itemController.text;
 
@@ -98,9 +97,10 @@ class _ReportTrashPageState extends State<ReportTrashPage> {
       description,
       category,
       imagePath,
-      location,
+      latitude,
+      longitude,
       quantity,
-      item,
+      item
     );
 
     Navigator.pop(context);
