@@ -1,4 +1,5 @@
 import 'package:crystalclear/core/services/auth_service.dart';
+import 'package:crystalclear/features/more/settings_page.dart';
 import 'package:crystalclear/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -115,6 +116,7 @@ class MyApp extends StatelessWidget {
         '/collections': (context) => const CollectionsPage(),
         '/map': (context) => const MapPage(),
         '/leaderboard': (context) => const LeaderboardPage(),
+        '/settings': (context) => const SettingsPage(),
       },
       initialRoute: '/',
     );
