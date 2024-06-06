@@ -1,9 +1,11 @@
 import 'dart:async';
-
+import 'package:crystalclear/core/services/db_service.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'pin_detail_page.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -18,6 +20,43 @@ class _MapPageState extends State<MapPage> {
     target: LatLng(-23.5505, -46.6333),
     zoom: 11,
   );
+
+  Set<Marker> _markers = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPins();
+  }
+
+Future<void> _loadPins() async {
+  List<Map<String, dynamic>> pins = await DatabaseService.getAllTrashReports();
+  setState(() {
+    _markers = pins.map((pin) {
+      return Marker(
+        markerId: MarkerId(pin['id'].toString()),
+        position: LatLng(
+          pin['latitude'] is double ? pin['latitude'] : double.parse(pin['latitude']),
+          pin['longitude'] is double ? pin['longitude'] : double.parse(pin['longitude']),
+        ),
+        infoWindow: InfoWindow(
+          title: pin['category'],
+          snippet: pin['description'],
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PinDetailPage(pin: pin),
+              ),
+            );
+          },
+        ),
+      );
+    }).toSet();
+  });
+}
+
+
 
   Future<void> getCurrentLocation(BuildContext context) async {
     PermissionStatus status = await Permission.location.status;
@@ -171,6 +210,7 @@ class _MapPageState extends State<MapPage> {
         zoomControlsEnabled: false,
         mapToolbarEnabled: true,
         myLocationButtonEnabled: false,
+        markers: _markers,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },

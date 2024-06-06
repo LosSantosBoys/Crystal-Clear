@@ -40,6 +40,8 @@ class _SignUpPageState extends State<SignUpPage> {
             const SnackBar(content: Text('Cadastro realizado com sucesso!')),
           );
         }
+
+        Navigator.pushReplacementNamed(context, '/home');
       }
     } else if (!privacyPolicy) {
       ScaffoldMessenger.of(context).showSnackBar(
