@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../core/services/db_service.dart';
+import '../../../core/widgets/custom_button.dart';
 
 class ReportTrashPage extends StatefulWidget {
   @override
@@ -16,41 +18,57 @@ class _ReportTrashPageState extends State<ReportTrashPage> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _itemController = TextEditingController();
   String? _selectedCategory;
-  LocationData? _locationData;
+  Position? _currentPosition;
 
   @override
   void initState() {
     super.initState();
-    _getLocation();
   }
 
-Future<void> _getLocation() async {
-  var location = Location();
-  bool _serviceEnabled;
-  PermissionStatus _permissionGranted;
-  LocationData? _locationData;
+  Future<void> getCurrentLocation(BuildContext context) async {
+    PermissionStatus status = await Permission.location.status;
 
-  _serviceEnabled = await location.serviceEnabled();
-  if (!_serviceEnabled) {
-    _serviceEnabled = await location.requestService();
-    if (!_serviceEnabled) {
-      return;
+    if (status.isDenied) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Row(
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                ),
+                SizedBox(width: 10),
+                Text("Permissão negada."),
+              ],
+            ),
+          ),
+        );
+      }
+    } else if (status.isPermanentlyDenied) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Row(
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                ),
+                SizedBox(width: 10),
+                Text("Permissão negada permanentemente."),
+              ],
+            ),
+          ),
+        );
+      }
     }
-  }
 
-  _permissionGranted = await location.hasPermission();
-  if (_permissionGranted == PermissionStatus.denied) {
-    _permissionGranted = await location.requestPermission();
-    if (_permissionGranted != PermissionStatus.granted) {
-      return;
-    }
+    final Position position = await Geolocator.getCurrentPosition();
+    setState(() {
+      _currentPosition = position;
+    });
   }
-
-  _locationData = await location.getLocation();
-  setState(() {
-    this._locationData = _locationData;
-  });
-}
 
   Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
@@ -69,8 +87,8 @@ Future<void> _getLocation() async {
     String description = _descriptionController.text;
     String category = _selectedCategory ?? '';
     String imagePath = _image?.path ?? '';
-    String location = _locationData != null
-        ? '(${_locationData!.latitude}, ${_locationData!.longitude})'
+    String location = _currentPosition != null
+        ? '(${_currentPosition!.latitude}, ${_currentPosition!.longitude})'
         : '';
     int quantity = int.tryParse(_quantityController.text) ?? 0;
     String item = _itemController.text;
@@ -94,7 +112,18 @@ Future<void> _getLocation() async {
       appBar: AppBar(
         title: const Text('Sinalizar'),
       ),
-      body: Padding(
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: CustomButton(
+          text: "Enviar",
+          onPressed: () {
+            getCurrentLocation(context).then((_) {
+              _saveReport(context);
+            });
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,11 +185,6 @@ Future<void> _getLocation() async {
                 hintText: "Descrição",
                 border: OutlineInputBorder(),
               ),
-            ),
-            const Spacer(),
-            ElevatedButton(
-              onPressed: () => _saveReport(context),
-              child: const Center(child: Text("Enviar")),
             ),
           ],
         ),
