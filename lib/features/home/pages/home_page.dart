@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:crystalclear/core/widgets/bottom_bar.dart';
-import 'package:crystalclear/core/widgets/more_drawer.dart';
+import 'package:crystalclear/features/more/more_page.dart';
 import 'package:crystalclear/features/home/widgets/collection_grid.dart';
 import 'package:crystalclear/core/widgets/section_widget.dart';
 import 'package:crystalclear/features/home/widgets/rank_listtile.dart';
