@@ -34,7 +34,7 @@ Color generateRandomColor({String? seed}) {
   }
 
   if (color.computeLuminance() <= 0.5) {
-    color = darken(color, 0.12);
+    color = color.darken(0.12);
   }
 
   return color;
@@ -54,7 +54,7 @@ Color generateRandomColor({String? seed}) {
 /// ```dart
 /// Color darkenedColor = darken(Colors.blue, 0.2);
 /// ```
-Color darken(Color color, [double amount = .1]) {
+Color darkenColor(Color color, [double amount = .1]) {
   assert(amount >= 0 && amount <= 1);
 
   final hsl = HSLColor.fromColor(color);
@@ -77,13 +77,50 @@ Color darken(Color color, [double amount = .1]) {
 /// ```dart
 /// Color lightnedColor = lighten(Colors.blue, 0.2);
 /// ```
-Color lighten(Color color, [double amount = .1]) {
+Color lightenColor(Color color, [double amount = .1]) {
   assert(amount >= 0 && amount <= 1);
 
   final hsl = HSLColor.fromColor(color);
   final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
 
   return hslLight.toColor();
+}
+
+extension ColorExtension on Color {
+  /// Darkens the color by the specified [amount].
+  ///
+  /// The [amount] parameter should be a value between 0 and 1, where 0 represents
+  /// no darkening and 1 represents maximum darkening. Values outside this range
+  /// will be clamped to the nearest valid value.
+  ///
+  /// This method is a shorthand for calling the [darken] function with the color
+  /// as the first argument.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// Color darkenedColor = Colors.blue.darken(0.2);
+  /// ```
+  Color darken([double amount = .1]) {
+    return darkenColor(this, amount);
+  }
+
+  /// Lightens the color by the specified [amount].
+  ///
+  /// The [amount] parameter should be a value between 0 and 1, where 0 represents
+  /// no lighting and 1 represents maximum lighting. Values outside this range
+  /// will be clamped to the nearest valid value.
+  ///
+  /// This method is a shorthand for calling the [lighten] function with the color
+  /// as the first argument.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// Color lightenedColor = Colors.blue.lighten(0.2);
+  /// ```
+  Color lighten([double amount = .1]) {
+    return lightenColor(this, amount);
+  }
+
 }
 
 extension StringExtension on String {
