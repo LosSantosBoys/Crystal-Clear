@@ -2,15 +2,10 @@ import 'package:crystalclear/core/services/auth_service.dart';
 import 'package:crystalclear/core/widgets/avatar.dart';
 import 'package:crystalclear/features/achievements/achievement_page.dart';
 import 'package:crystalclear/features/home/pages/home_inner_page.dart';
-import 'package:crystalclear/features/home/widgets/sample_map.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:crystalclear/core/widgets/bottom_bar.dart';
 import 'package:crystalclear/features/more/more_page.dart';
-import 'package:crystalclear/features/home/widgets/collection_grid.dart';
-import 'package:crystalclear/core/widgets/section_widget.dart';
-import 'package:crystalclear/features/home/widgets/rank_listtile.dart';
 
 import 'report_trash_page.dart';
 
