@@ -1,5 +1,8 @@
 import 'package:crystalclear/core/services/auth_service.dart';
 import 'package:crystalclear/core/widgets/avatar.dart';
+import 'package:crystalclear/features/achievements/achievement_page.dart';
+import 'package:crystalclear/features/home/pages/home_inner_page.dart';
+import 'package:crystalclear/features/home/widgets/sample_map.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -21,11 +24,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   PageController pageController = PageController(initialPage: 0);
+  int index = 0;
 
   @override
   void initState() {
     super.initState();
     askForLocationPermission();
+
+    pageController.addListener(() {
+      setState(() {
+        index = pageController.page!.round();
+      });
+    });
   }
 
   void askForLocationPermission() async {
@@ -38,14 +48,27 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  String getAppbarTitle() {
+    switch (index) {
+      case 0:
+        return "Crystal Clear";
+      case 1:
+        return "Conquistas";
+      case 2:
+        return "Feed";
+      default:
+        return "Crystal Clear";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: const Text(
-          "Crystal Clear",
-          style: TextStyle(
+        title: Text(
+          getAppbarTitle(),
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -82,83 +105,10 @@ class _HomePageState extends State<HomePage> {
       endDrawer: const MoreDrawer(),
       body: PageView(
         controller: pageController,
-        onPageChanged: (int index) {},
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Wrap(
-              runSpacing: 15,
-              children: [
-                Section(
-                  headerTitle: "Suas coletas",
-                  headerTrailing: TextButton(
-                    onPressed: () => Navigator.pushNamed(context, '/collections'),
-                    child: const Text("ver mais"),
-                  ),
-                  child: const CollectionGrid(),
-                ),
-                Section(
-                  headerTitle: "Encontre entulhos próximos",
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 312,
-                      child: GoogleMap(
-                        mapType: MapType.normal,
-                        initialCameraPosition: const CameraPosition(
-                          target: LatLng(-23.5505, -46.6333),
-                          zoom: 11,
-                        ),
-                        zoomGesturesEnabled: false,
-                        zoomControlsEnabled: false,
-                        onTap: (_) => Navigator.pushNamed(context, '/map'),
-                      ),
-                    ),
-                  ),
-                ),
-                Section(
-                  headerTitle: "Placar de Líderes",
-                  headerTrailing: TextButton(
-                    onPressed: () => Navigator.pushNamed(context, '/leaderboard'),
-                    child: const Text("ver mais"),
-                  ),
-                  child: SizedBox(
-                    height: 270,
-                    child: ListView(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      children: const [
-                        RankListTile(
-                          name: "Nome Sobrenome",
-                          points: 1000,
-                          position: 1,
-                        ),
-                        RankListTile(
-                          name: "Nome Sobrenome",
-                          points: 900,
-                          position: 2,
-                        ),
-                        RankListTile(
-                          name: "Nome Sobrenome",
-                          points: 800,
-                          position: 3,
-                        ),
-                        RankListTile(
-                          name: "Você",
-                          points: 600,
-                          position: 8,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SingleChildScrollView(
-            child: Column(),
-          ),
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          HomeInnerPage(),
+          AchievementPage(),
         ],
       ),
       floatingActionButton: SizedBox.square(
