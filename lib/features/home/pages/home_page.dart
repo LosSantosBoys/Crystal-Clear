@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  PageController pageController = PageController(initialPage: 0);
 
   @override
   void initState() {
@@ -75,80 +76,90 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomBar(
         scaffoldKey: scaffoldKey,
+        pageController: pageController,
       ),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: const MoreDrawer(),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Wrap(
-          runSpacing: 15,
-          children: [
-            Section(
-              headerTitle: "Suas coletas",
-              headerTrailing: TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/collections'),
-                child: const Text("ver mais"),
-              ),
-              child: const CollectionGrid(),
-            ),
-            Section(
-              headerTitle: "Encontre entulhos próximos",
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 312,
-                  child: GoogleMap(
-                    mapType: MapType.normal,
-                    initialCameraPosition: const CameraPosition(
-                      target: LatLng(-23.5505, -46.6333),
-                      zoom: 11,
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (int index) {},
+        children: [
+          SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Wrap(
+              runSpacing: 15,
+              children: [
+                Section(
+                  headerTitle: "Suas coletas",
+                  headerTrailing: TextButton(
+                    onPressed: () => Navigator.pushNamed(context, '/collections'),
+                    child: const Text("ver mais"),
+                  ),
+                  child: const CollectionGrid(),
+                ),
+                Section(
+                  headerTitle: "Encontre entulhos próximos",
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 312,
+                      child: GoogleMap(
+                        mapType: MapType.normal,
+                        initialCameraPosition: const CameraPosition(
+                          target: LatLng(-23.5505, -46.6333),
+                          zoom: 11,
+                        ),
+                        zoomGesturesEnabled: false,
+                        zoomControlsEnabled: false,
+                        onTap: (_) => Navigator.pushNamed(context, '/map'),
+                      ),
                     ),
-                    zoomGesturesEnabled: false,
-                    zoomControlsEnabled: false,
-                    onTap: (_) => Navigator.pushNamed(context, '/map'),
                   ),
                 ),
-              ),
-            ),
-            Section(
-              headerTitle: "Placar de Líderes",
-              headerTrailing: TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/leaderboard'),
-                child: const Text("ver mais"),
-              ),
-              child: SizedBox(
-                height: 270,
-                child: ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  children: const [
-                    RankListTile(
-                      name: "Nome Sobrenome",
-                      points: 1000,
-                      position: 1,
+                Section(
+                  headerTitle: "Placar de Líderes",
+                  headerTrailing: TextButton(
+                    onPressed: () => Navigator.pushNamed(context, '/leaderboard'),
+                    child: const Text("ver mais"),
+                  ),
+                  child: SizedBox(
+                    height: 270,
+                    child: ListView(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      children: const [
+                        RankListTile(
+                          name: "Nome Sobrenome",
+                          points: 1000,
+                          position: 1,
+                        ),
+                        RankListTile(
+                          name: "Nome Sobrenome",
+                          points: 900,
+                          position: 2,
+                        ),
+                        RankListTile(
+                          name: "Nome Sobrenome",
+                          points: 800,
+                          position: 3,
+                        ),
+                        RankListTile(
+                          name: "Você",
+                          points: 600,
+                          position: 8,
+                        ),
+                      ],
                     ),
-                    RankListTile(
-                      name: "Nome Sobrenome",
-                      points: 900,
-                      position: 2,
-                    ),
-                    RankListTile(
-                      name: "Nome Sobrenome",
-                      points: 800,
-                      position: 3,
-                    ),
-                    RankListTile(
-                      name: "Você",
-                      points: 600,
-                      position: 8,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+          SingleChildScrollView(
+            child: Column(),
+          ),
+        ],
       ),
       floatingActionButton: SizedBox.square(
         dimension: 58,
@@ -157,7 +168,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ReportTrashPage()),
-            ),            
+            ),
             elevation: 0,
             tooltip: "Sinalizar entulho",
             backgroundColor: const Color(0xFF386BF6),
