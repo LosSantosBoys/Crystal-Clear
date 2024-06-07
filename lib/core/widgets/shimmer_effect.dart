@@ -1,4 +1,4 @@
-import 'package:crystalclear/features/achievements/widgets/shimmer_animator.dart';
+import 'package:crystalclear/core/widgets/shimmer_animator.dart';
 import 'package:flutter/material.dart';
 
 class ShimmerEffect extends StatelessWidget {

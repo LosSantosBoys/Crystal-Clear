@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:crystalclear/features/achievements/widgets/shimmer_painter.dart';
+import 'package:crystalclear/core/widgets/shimmer_painter.dart';
 import 'package:flutter/material.dart';
 
 class ShimmerAnimator extends StatefulWidget {
