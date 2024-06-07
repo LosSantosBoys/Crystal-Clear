@@ -12,8 +12,10 @@ class PinDetailPage extends StatelessWidget {
   Future<void> _acceptCollection(BuildContext context) async {
     await DatabaseService.updateTrashReportAssignee(pin['id'], 1);
 
-    final String address = await getAddress(pin['latitude'] is double ? pin['latitude'] : double.parse(pin['latitude']),
-          pin['longitude'] is double ? pin['longitude'] : double.parse(pin['longitude']),);
+    final String address = await getAddress(
+      pin['latitude'] is double ? pin['latitude'] : double.parse(pin['latitude']),
+      pin['longitude'] is double ? pin['longitude'] : double.parse(pin['longitude']),
+    );
     String addressPart = address;
 
     await DatabaseService.insertTrashCollect(
@@ -24,13 +26,15 @@ class PinDetailPage extends StatelessWidget {
       addressPart,
     );
 
-    Navigator.pop(context);
+    if (context.mounted) {
+      Navigator.pop(context);
+    }
   }
 
   Future<String> getAddress(double latitude, double longitude) async {
     List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
     Placemark place = placemarks.first;
-  
+
     String locality = place.locality ?? '';
     String subLocality = place.subLocality ?? '';
     String thoroughfare = place.thoroughfare ?? '';
@@ -41,7 +45,7 @@ class PinDetailPage extends StatelessWidget {
     if (subLocality.isNotEmpty) parts.add(subLocality);
     if (thoroughfare.isNotEmpty) parts.add(thoroughfare);
 
-    return parts.join(', ');  
+    return parts.join(', ');
   }
 
   @override
