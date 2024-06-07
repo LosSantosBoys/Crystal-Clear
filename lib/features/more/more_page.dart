@@ -30,26 +30,6 @@ class MoreDrawer extends StatelessWidget {
                       fontSize: 18,
                     ),
                   ),
-                  subtitle: Row(
-                    children: [
-                      ActionChip(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        labelPadding: EdgeInsets.zero,
-                        labelStyle: const TextStyle(
-                          color: Color(0xFF09BB25),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          side: const BorderSide(
-                            width: 1,
-                            color: Color(0xFF09BB25),
-                          ),
-                        ),
-                        label: const Text("Status: online"),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -72,7 +52,7 @@ class MoreDrawer extends StatelessWidget {
                         Icon(Icons.stars_outlined),
                         SizedBox(height: 5),
                         Text(
-                          "400",
+                          "0",
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -91,7 +71,7 @@ class MoreDrawer extends StatelessWidget {
                         Icon(Icons.emoji_events_outlined),
                         SizedBox(height: 5),
                         Text(
-                          "3",
+                          "0",
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
