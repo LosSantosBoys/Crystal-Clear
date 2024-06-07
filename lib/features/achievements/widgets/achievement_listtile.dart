@@ -1,6 +1,6 @@
 import 'package:crystalclear/core/utils/utils.dart';
+import 'package:crystalclear/core/widgets/shimmer_effect.dart';
 import 'package:crystalclear/features/achievements/enum/achievement_type.dart';
-import 'package:crystalclear/features/achievements/widgets/shimmer_effect.dart';
 import 'package:flutter/material.dart';
 
 class AchievementListTile extends StatelessWidget {
