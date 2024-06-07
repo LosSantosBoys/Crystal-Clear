@@ -1,4 +1,6 @@
+import 'package:crystalclear/core/utils/utils.dart';
 import 'package:crystalclear/features/achievements/enum/achievement_type.dart';
+import 'package:crystalclear/features/achievements/widgets/shimmer_effect.dart';
 import 'package:flutter/material.dart';
 
 class AchievementListTile extends StatelessWidget {
@@ -49,16 +51,22 @@ class AchievementListTile extends StatelessWidget {
           color: achieved ? Colors.black : const Color(0xFFC5C6CC),
         ),
       ),
-      leading: Container(
-        width: 54,
-        height: 54,
-        decoration: BoxDecoration(
-          color: getColorByType(),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: const Icon(
-          Icons.emoji_events_outlined,
-          color: Colors.white,
+      leading: ShimmerEffect(
+        color: getColorByType().lighten(0.15),
+        duration: const Duration(milliseconds: 2500),
+        interval: const Duration(seconds: 5),
+        enabled: achieved,
+        child: Container(
+          width: 54,
+          height: 54,
+          decoration: BoxDecoration(
+            color: getColorByType(),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: const Icon(
+            Icons.emoji_events_outlined,
+            color: Colors.white,
+          ),
         ),
       ),
     );
