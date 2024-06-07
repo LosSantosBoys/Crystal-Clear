@@ -11,12 +11,14 @@ import 'package:crystalclear/features/home/pages/home_page.dart';
 import 'package:crystalclear/features/home/pages/leaderboard_page.dart';
 import 'package:crystalclear/features/home/pages/map_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  timeago.setLocaleMessages('pt_BR_short', timeago.PtBrShortMessages());
 
   runApp(const MyApp());
 }
