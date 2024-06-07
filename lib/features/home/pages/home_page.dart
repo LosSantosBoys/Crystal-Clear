@@ -1,6 +1,6 @@
 import 'package:crystalclear/core/services/auth_service.dart';
 import 'package:crystalclear/core/widgets/avatar.dart';
-import 'package:crystalclear/features/achievements/achievement_page.dart';
+import 'package:crystalclear/features/achievements/pages/achievement_page.dart';
 import 'package:crystalclear/features/home/pages/home_inner_page.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
