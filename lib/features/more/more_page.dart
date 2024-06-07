@@ -4,6 +4,7 @@ import 'package:crystalclear/core/services/auth_service.dart';
 import 'package:crystalclear/core/utils/utils.dart';
 import 'package:crystalclear/core/widgets/avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class MoreDrawer extends StatelessWidget {
   const MoreDrawer({super.key});
@@ -63,10 +64,10 @@ class MoreDrawer extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
+                    const Column(
                       children: [
                         Icon(Icons.stars_outlined),
                         SizedBox(height: 5),
@@ -85,7 +86,7 @@ class MoreDrawer extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Column(
+                    const Column(
                       children: [
                         Icon(Icons.emoji_events_outlined),
                         SizedBox(height: 5),
@@ -106,16 +107,16 @@ class MoreDrawer extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        Icon(Icons.event),
-                        SizedBox(height: 5),
+                        const Icon(Icons.event),
+                        const SizedBox(height: 5),
                         Text(
-                          "1 ano",
-                          style: TextStyle(
+                          timeago.format(AuthService().getUser()?.metadata.creationTime ?? DateTime.now(), locale: 'pt_BR_short'),
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Text(
+                        const Text(
                           "ativo",
                           style: TextStyle(
                             fontWeight: FontWeight.w300,
