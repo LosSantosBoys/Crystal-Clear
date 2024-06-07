@@ -8,7 +8,7 @@ import '../../../core/services/db_service.dart';
 import 'collection_details_page.dart';
 
 class CollectionsPage extends StatelessWidget {
-  const CollectionsPage({Key? key});
+  const CollectionsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,6 @@ class CollectionsPage extends StatelessWidget {
       children: [
         ListTile(
           contentPadding: EdgeInsets.zero,
-          minVerticalPadding: 0,
           leading: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -150,9 +149,7 @@ class CollectionsPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => isActive
-                    ? CollectDetailPage(collect: item)
-                    : CollectDetailPage(collect: item),
+                builder: (context) => isActive ? CollectDetailPage(collect: item) : CollectDetailPage(collect: item),
               ),
             );
           },
