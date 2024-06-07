@@ -1,4 +1,5 @@
 import 'package:crystalclear/core/widgets/section_widget.dart';
+import 'package:crystalclear/features/home/widgets/challenge_listtile.dart';
 import 'package:crystalclear/features/home/widgets/collection_grid.dart';
 import 'package:crystalclear/features/home/widgets/rank_listtile.dart';
 import 'package:crystalclear/features/home/widgets/sample_map.dart';
@@ -36,6 +37,37 @@ class _HomeInnerPageState extends State<HomeInnerPage> {
                 height: 312,
                 child: SampleMap(),
               ),
+            ),
+          ),
+          const Section(
+            headerTitle: "Desafios de hoje",
+            child: Wrap(
+              runSpacing: 5,
+              children: [
+                ChallengeListTile(
+                  title: "Coletador de Entulho 1",
+                  subtitle: "Coletar 10 garrafas de plástico",
+                  points: 100,
+                  achieved: true,
+                ),
+                ChallengeListTile(
+                  title: "Coletador de Entulho 2",
+                  subtitle: "Coletar 5 garrafas de vidro",
+                  points: 300,
+                  achieved: true,
+                ),
+                ChallengeListTile(
+                  title: "Coletador de Entulho 3",
+                  subtitle: "Coletar 30 garrafas de plástico",
+                  points: 600,
+                  achieved: true,
+                ),
+                ChallengeListTile(
+                  title: "Coletador de Entulho 4",
+                  subtitle: "Coletar 100 garrafas de plástico",
+                  points: 1000,
+                ),
+              ],
             ),
           ),
           Section(
