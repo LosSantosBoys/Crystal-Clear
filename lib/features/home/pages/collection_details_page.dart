@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:crystalclear/core/services/db_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../core/widgets/custom_button.dart';
@@ -70,7 +71,9 @@ class _CollectDetailPageState extends State<CollectDetailPage> {
         points = report['points'];
       });
     } catch (e) {
-      print('Error fetching points: $e');
+      if (kDebugMode) {
+        print('Error fetching points: $e');
+      }
     }
   }
 
@@ -81,14 +84,14 @@ class _CollectDetailPageState extends State<CollectDetailPage> {
         title: Text(widget.collect['item'] ?? 'Item Desconhecido'),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(24.0),
         child: CustomButton(
           text: "Finalizar coleta",
           onPressed: () => _finalizeCollection(context),
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
