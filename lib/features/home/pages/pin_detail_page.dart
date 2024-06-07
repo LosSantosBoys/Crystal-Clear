@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:crystalclear/core/services/db_service.dart';
+import 'package:crystalclear/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -50,14 +51,14 @@ class PinDetailPage extends StatelessWidget {
         title: Text(pin['category']),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
+        padding: const EdgeInsets.all(24),
+        child: CustomButton(
           onPressed: () => _acceptCollection(context),
-          child: const Text('Aceitar coleta'),
+          text: "Aceitar coleta",
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
