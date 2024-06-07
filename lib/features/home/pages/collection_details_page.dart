@@ -43,15 +43,18 @@ class _CollectDetailPageState extends State<CollectDetailPage> {
   }
 
   Future<void> _finalizeCollection(BuildContext context) async {
-      String imagePath = _image?.path ?? '';
-      int idReport = widget.collect['id_report'];
-      int id = widget.collect['id'];
-      int idAssignee = widget.collect['id_assignee'];
+    String imagePath = _image?.path ?? '';
+    int idReport = widget.collect['id_report'];
+    int id = widget.collect['id'];
+    int idAssignee = widget.collect['id_assignee'];
 
-      await DatabaseService.markTrashCollectionAsDone(idReport, id, imagePath);
-      await DatabaseService.updateUserPoints(idAssignee, points!);
+    await DatabaseService.markTrashCollectionAsDone(idReport, id, imagePath);
+    await DatabaseService.updateUserPoints(idAssignee, points!);
 
+    if (context.mounted) {
       Navigator.pop(context);
+      setState(() {});
+    }
   }
 
   @override
@@ -95,9 +98,7 @@ class _CollectDetailPageState extends State<CollectDetailPage> {
                 width: double.infinity,
                 height: 200,
                 color: Colors.grey[300],
-                child: _image == null
-                    ? const Icon(Icons.camera_alt, size: 100)
-                    : Image.file(_image!, fit: BoxFit.cover),
+                child: _image == null ? const Icon(Icons.camera_alt, size: 100) : Image.file(_image!, fit: BoxFit.cover),
               ),
             ),
             const SizedBox(height: 16),
